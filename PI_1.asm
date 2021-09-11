@@ -86,6 +86,7 @@ INIT:
     BSF		TRISC, 0		;RC0 es entrada
     BSF		TRISC, 1		;RC1 es entrada
     BSF		TRISC, 2		;RC2 es entrada
+    BCF		TRISC, 4		;RC4 es salida
     CLRF	TRISA			;PORTA es salida: DISPLAY_MIN
     CLRF	TRISB			;PORTB es salida: DISPLAY_DEC
     CLRF	TRISD			;PORTD es salida: DISPLAY_SEG
@@ -93,6 +94,7 @@ INIT:
     CLRF	PORTB			;Limpiar el puerto B
     CLRF	PORTD			;Limpiar el puerto D
     
+    BSF		CONTANDO, 0
     MOVLW	0x03
     MOVWF	MINU
     MOVLW	0x00
@@ -115,9 +117,10 @@ WAITING:
     CALL VAL_BUTTON
     CALL    MILIS_100			;tiempo de espera
     
-    MOVF CONTANDO, W
-    BNZ  SHOW
-    GOTO WAITING
+    ;MOVF CONTANDO, W
+    ;BNZ  SHOW
+    BTFSS CONTANDO, 0
+    GOTO  WAITING
 
 SHOW:    
     CALL  PARSE_MINU
@@ -161,7 +164,12 @@ ZEROS:
     MOVWF	DECA
     MOVLW	0x00
     MOVWF	SEGU
-    GOTO     WAITING
+    MOVLW       b'00111111'
+    MOVWF	PORTA
+    MOVWF	PORTB
+    MOVWF	PORTD
+    BCF		CONTANDO, 0
+    GOTO	WAITING
     
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 INIT_BUTTON:
@@ -301,8 +309,8 @@ C0:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;   
 TIMER:
 ;SEG_1:
-    BTG	PORTB, 2		; para monitoreo
-    MOVLW 0x0A			; 10*100ms = 1s
+    BTG	PORTC, 4		; para monitoreo
+    MOVLW 0x07			; 10*100ms = 1s
     MOVWF MULTIPLO
 LOOP_1:
     CALL MILIS_100
