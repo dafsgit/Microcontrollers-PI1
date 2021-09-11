@@ -168,7 +168,6 @@ ZEROS:
     MOVWF	PORTA
     MOVWF	PORTB
     MOVWF	PORTD
-    BCF		CONTANDO, 0
     GOTO	WAITING
     
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
