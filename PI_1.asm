@@ -283,27 +283,37 @@ PARSE_SEGU:
     
     BRA C0
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; cátodo y ánodo común
 C9:    
     RETLW b'01101111'
+    ;RETLW b'00010000'
 C8:
     RETLW b'01111111'
+    ;RETLW b'00000000'
 C7:
     RETLW b'00000111'
+    ;RETLW b'01111000'
 C6:
     RETLW b'01111101'
+    ;RETLW b'00000010'
 C5:
     RETLW b'01101101'
+   ; RETLW b'00010010'
 C4:
     RETLW b'01100110'  
+    ;RETLW b'00011001'
 C3:
     RETLW b'01001111'
+    ;RETLW b'00110000'
 C2:
     RETLW b'01011011'
+    ;RETLW b'00100100'
 C1:					
-    RETLW b'00000110'				
+    RETLW b'00000110'
+    ;RETLW b'01111001'
 C0:					
     RETLW b'00111111'
+    ;RETLW b'01000000'
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;   
 TIMER:
